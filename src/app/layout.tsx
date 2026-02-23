@@ -42,22 +42,23 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className="animated-bg antialiased">
-          {/*  */}
-
           {/* Show the sign-in and sign-up buttons when the user is signed out */}
           <SignedOutPosition />
 
           {/* Show the user button when the user is signed in */}
           <SignedIn>
-            <Header />
-            <SidebarProvider>
-              <AppSidebar />
-
-              <main className="bg-gray-50 flex-1 min-h-screen">{children}</main>
-            </SidebarProvider>
+            <div className="flex flex-col">
+              <Header />
+              <SidebarProvider defaultOpen={false}>
+                <div className="flex w-full">
+                  <AppSidebar />
+                  <main className="bg-gray-50 flex-1 min-h-screen">
+                    {children}
+                  </main>
+                </div>
+              </SidebarProvider>
+            </div>
           </SignedIn>
-
-          {/*  */}
         </body>
       </html>
     </ClerkProvider>

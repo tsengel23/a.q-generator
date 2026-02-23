@@ -19,9 +19,9 @@ import { Button } from "@/components/ui/button";
 
 export const QuizGenerator = () => {
   return (
-    <div className="border border-[#E4E4E7] bg-white rounded-sm w-[856px] h-[442px] flex flex-col gap-5 p-7 mt-12 items-end">
+    <div className="border border-[#E4E4E7] bg-white rounded-sm  h-fit flex flex-col gap-5 p-7 mt-12 items-end">
       <div className="flex flex-col gap-1">
-        <h1 className="flex gap-1 ">
+        <h1 className="flex gap-1 text-2xl font-semibold items-center">
           <Sparkles className="text-blue-500 " /> Article Quiz Generator
         </h1>
         <p className="text-[#71717A] font-normal text-base">
