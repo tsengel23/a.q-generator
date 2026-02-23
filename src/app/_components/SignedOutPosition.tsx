@@ -10,22 +10,24 @@ import {
 export const SignedOutPosition = () => {
   return (
     <SignedOut>
-      <SignInButton>
-        <Button
-          variant={"outline"}
-          className="bg-[#6c47ff] text-white rounded-xl font-medium text-sm sm:text-base h-10 sm:h-10 px-4 sm:px-5 cursor-pointer"
-        >
-          Sign in
-        </Button>
-      </SignInButton>
-      <SignUpButton>
-        <Button
-          variant={"outline"}
-          className="bg-[#6c47ff] text-white rounded-xl font-medium text-sm sm:text-base h-10 sm:h-10 px-4 sm:px-5 cursor-pointer"
-        >
-          Sign Up
-        </Button>
-      </SignUpButton>
+      <div className="flex gap-3 justify-end p-3">
+        <SignInButton>
+          <Button
+            variant={"outline"}
+            className="bg-[#6c47ff] text-white rounded-xl font-medium text-sm sm:text-base h-10 sm:h-10 px-4 sm:px-5 cursor-pointer"
+          >
+            Sign in
+          </Button>
+        </SignInButton>
+        <SignUpButton>
+          <Button
+            variant={"outline"}
+            className="bg-[#6c47ff] text-white rounded-xl font-medium text-sm sm:text-base h-10 sm:h-10 px-4 sm:px-5 cursor-pointer"
+          >
+            Sign Up
+          </Button>
+        </SignUpButton>
+      </div>
     </SignedOut>
   );
 };
