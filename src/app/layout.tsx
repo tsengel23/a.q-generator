@@ -14,6 +14,7 @@ import "./globals.css";
 import { Header } from "./_components/Header";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "./_components/app-sidebar";
+import { SignedOutPosition } from "./_components/SignedOutPosition";
 
 // import { TooltipProvider } from "@/components/ui/tooltip";
 
@@ -42,16 +43,17 @@ export default function RootLayout({
       <html lang="en">
         <body className="animated-bg antialiased">
           {/*  */}
-          <header className="flex justify-end items-center p-4 gap-4 h-16">
+          <header className="flex justify-end items-center p-4 gap-3 h-16">
             {/* Show the sign-in and sign-up buttons when the user is signed out */}
-            <SignedOut>
+            <SignedOutPosition />
+            {/* <SignedOut>
               <SignInButton />
               <SignUpButton>
-                <button className="bg-[#6c47ff] text-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer">
+                <button className="bg-[#6c47ff] text-white rounded-xl font-medium text-sm sm:text-base h-10 sm:h-10 px-4 sm:px-5 cursor-pointer">
                   Sign Up
                 </button>
               </SignUpButton>
-            </SignedOut>
+            </SignedOut> */}
             {/* Show the user button when the user is signed in */}
             <SignedIn>
               <Header />
