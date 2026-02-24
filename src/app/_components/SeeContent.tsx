@@ -41,7 +41,7 @@ export const SeeContent = () => {
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline"> See content</Button>
+          <Button variant={"outline"}>See content</Button>
         </DialogTrigger>
         <DialogContent className="[&>button]:hidden">
           <div className="flex justify-between items-center">

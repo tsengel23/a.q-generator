@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { BookOpen, ChevronLeft, Sparkles } from "lucide-react";
 import { SeeContent } from "./SeeContent";
+import { TakeQuiz } from "./TakeQuiz";
 
 export type SummarizedContentProps = {
   title: string;
@@ -46,9 +47,8 @@ export const SummarizedContent = ({
         </div>
         <div className="flex justify-between">
           <SeeContent />
-          <Button variant={"default"} className="">
-            Take a quiz
-          </Button>
+          {/* <TakeQuiz /> */}
+          <Button variant={"default"}>Take a quiz</Button>
         </div>
       </div>
     </div>
