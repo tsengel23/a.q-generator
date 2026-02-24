@@ -1,20 +1,28 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { BookOpen, ChevronLeft, Sparkles } from "lucide-react";
 import { SeeContent } from "./SeeContent";
 import { TakeQuiz } from "./TakeQuiz";
 
+import { useRouter } from "next/navigation";
+
 export type SummarizedContentProps = {
   title: string;
-  content: string;
+  summary: string;
 };
 
 export const SummarizedContent = ({
   title,
-  content,
+  summary,
 }: SummarizedContentProps) => {
+  const router = useRouter();
   return (
     <div className="flex flex-col h-fit gap-6 mt-12 aspect-[856/356] w-[856px]">
-      <Button variant={"outline"} className="w-12 h-10">
+      <Button
+        variant={"outline"}
+        className="w-12 h-10"
+        onClick={() => router.push("/")}
+      >
         <ChevronLeft className="text-black w-4 h-4" />
       </Button>
       <div className="border rounded-sm p-7 flex flex-col gap-5">
@@ -28,22 +36,8 @@ export const SummarizedContent = ({
               Summarized content
             </p>
           </div>
-          <h1 className="text-2xl font-semibold">
-            Genghis khan
-            {title}
-          </h1>
-          <p className="text-sm font-normal wrap-break-word">
-            Genghis Khan, born Temüjin around 1162, was the founder of the
-            Mongol Empire. After his fas death, Temüins family was left in
-            poverty, and he later killed his half-brother to secure his
-            position. He built alliances with leaders like Jamukha and Toghrul,
-            and despite being defeated in battle and briefly under the Jin
-            dynasty, he rose to power by defeating rivals. By 1206, after
-            overcoming the Naiman tribe and executing Jamukha, Temüjin became
-            the undisputed ruler of the Mongol steppe, eventually leading a
-            series of successful military campaigns that expanded his empire
-            across China and Central Asia.{content}
-          </p>
+          <h1 className="text-2xl font-semibold">{title}</h1>
+          <p className="text-sm font-normal wrap-break-word">{summary}</p>
         </div>
         <div className="flex justify-between">
           <SeeContent />
