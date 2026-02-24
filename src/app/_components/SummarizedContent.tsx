@@ -1,9 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { BookOpen, ChevronLeft, Sparkles } from "lucide-react";
+import { SeeContent } from "./SeeContent";
 
-export const SummarizedContent = () => {
+export type SummarizedContentProps = {
+  title: string;
+  content: string;
+};
+
+export const SummarizedContent = ({
+  title,
+  content,
+}: SummarizedContentProps) => {
   return (
-    <div className="flex flex-col h-fit gap-6 mt-12">
+    <div className="flex flex-col h-fit gap-6 mt-12 aspect-[856/356] w-[856px]">
       <Button variant={"outline"} className="w-12 h-10">
         <ChevronLeft className="text-black w-4 h-4" />
       </Button>
@@ -20,7 +29,7 @@ export const SummarizedContent = () => {
           </div>
           <h1 className="text-2xl font-semibold">
             Genghis khan
-            {/* {title} */}
+            {title}
           </h1>
           <p className="text-sm font-normal wrap-break-word">
             Genghis Khan, born Temüjin around 1162, was the founder of the
@@ -32,13 +41,11 @@ export const SummarizedContent = () => {
             overcoming the Naiman tribe and executing Jamukha, Temüjin became
             the undisputed ruler of the Mongol steppe, eventually leading a
             series of successful military campaigns that expanded his empire
-            across China and Central Asia.{/* {content} */}
+            across China and Central Asia.{content}
           </p>
         </div>
         <div className="flex justify-between">
-          <Button variant={"outline"} className="">
-            See content
-          </Button>
+          <SeeContent />
           <Button variant={"default"} className="">
             Take a quiz
           </Button>

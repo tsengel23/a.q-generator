@@ -10,15 +10,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOut } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { UserButton } from "@clerk/nextjs";
+// import { LogOut } from "lucide-react";
+// import { useRouter } from "next/navigation";
 
 export const Header = () => {
-  const router = useRouter();
+  // const router = useRouter();
   return (
     <div className="flex justify-between px-6 py-2 bg-white w-full h-[56px] border">
       <h1 className="text-black font-semibold text-2xl">Quiz app</h1>
-      <DropdownMenu>
+      <div>
+        <UserButton />
+      </div>
+
+      {/* <DropdownMenu>
         <DropdownMenuTrigger>
           <Avatar className="w-10 h-10">
             <AvatarImage src="https://github.com/shadcn.png" className="" />
@@ -47,7 +52,7 @@ export const Header = () => {
             </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
-      </DropdownMenu>
+      </DropdownMenu> */}
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import {
   ClerkProvider,
   SignInButton,
+  SignOutButton,
   SignUpButton,
   SignedIn,
   SignedOut,
@@ -49,6 +50,7 @@ export default function RootLayout({
           <SignedIn>
             <div className="flex flex-col">
               <Header />
+
               <SidebarProvider defaultOpen={false}>
                 <div className="flex w-full">
                   <AppSidebar />

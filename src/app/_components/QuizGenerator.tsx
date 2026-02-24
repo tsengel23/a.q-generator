@@ -49,7 +49,7 @@ export const QuizGenerator = () => {
           />
         </Field>
       </div>
-      <Button variant={"outline"} className="bg-gray-500 text-white">
+      <Button variant={"default"} className="bg-gray-500 text-white">
         Generate summary
       </Button>
     </div>
