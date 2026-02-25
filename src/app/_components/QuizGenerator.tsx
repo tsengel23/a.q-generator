@@ -1,23 +1,30 @@
+"use client";
+
 import { Input } from "@/components/ui/input";
 import { FileText, Sparkles } from "lucide-react";
-import { Label } from "@/components/ui/label";
 
-import {
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-  FieldLegend,
-  FieldSeparator,
-  FieldSet,
-  FieldTitle,
-} from "@/components/ui/field";
+import { Field, FieldLabel } from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 export const QuizGenerator = () => {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const router = useRouter();
+
+  const handleSubmit = () => {
+    if (!title || !content) {
+      alert("please fill in both fields");
+      return;
+    }
+    localStorage.setItem("article", JSON.stringify({ title, content }));
+
+    router.push("/article/new");
+  };
+
   return (
     <div className="border border-[#E4E4E7] bg-white rounded-sm  h-fit flex flex-col gap-5 p-7 mt-12 items-end">
       <div className="flex flex-col gap-1">
@@ -34,7 +41,12 @@ export const QuizGenerator = () => {
           <FieldLabel htmlFor="title" className="flex gap-1 ">
             <FileText className="w-4 h-4 text-orange-500" /> Article Title
           </FieldLabel>
-          <Input id="title" placeholder="Enter a title for your article..." />
+          <Input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            id="title"
+            placeholder="Enter a title for your article..."
+          />
         </Field>
       </div>
       <div className="flex gap-1 w-full">
@@ -43,13 +55,19 @@ export const QuizGenerator = () => {
             <FileText className="w-4 h-4 text-orange-500" /> Article Content
           </FieldLabel>
           <Textarea
-            id="title"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            id="content"
             placeholder="Paste your article content here..."
             className="h-30 resize-none overflow-hidden"
           />
         </Field>
       </div>
-      <Button variant={"default"} className="bg-gray-500 text-white">
+      <Button
+        onClick={handleSubmit}
+        variant={"default"}
+        className="bg-gray-500 text-white"
+      >
         Generate summary
       </Button>
     </div>

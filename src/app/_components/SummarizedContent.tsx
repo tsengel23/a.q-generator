@@ -5,15 +5,18 @@ import { SeeContent } from "./SeeContent";
 import { TakeQuiz } from "./TakeQuiz";
 
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export type SummarizedContentProps = {
   title: string;
   summary: string;
+  content: string;
 };
 
 export const SummarizedContent = ({
   title,
   summary,
+  content,
 }: SummarizedContentProps) => {
   const router = useRouter();
   return (
@@ -40,9 +43,11 @@ export const SummarizedContent = ({
           <p className="text-sm font-normal wrap-break-word">{summary}</p>
         </div>
         <div className="flex justify-between">
-          <SeeContent />
+          <SeeContent title={title} content={content} />
           {/* <TakeQuiz /> */}
-          <Button variant={"default"}>Take a quiz</Button>
+          <Link href={"/quiz/1"}>
+            <Button variant={"default"}>Take a quiz</Button>
+          </Link>
         </div>
       </div>
     </div>
