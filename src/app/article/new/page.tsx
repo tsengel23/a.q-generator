@@ -10,19 +10,23 @@ export default function NewArticlePage() {
   const [article, setArticle] = useState<{
     title: string;
     content: string;
-  } | null>(null);
+  } | null>(() => {
+    // Browser дээр ажиллаж байгаа эсэхийг шалгах
+    if (typeof window !== "undefined") {
+      const data = localStorage.getItem("article");
+      if (data) {
+        return JSON.parse(data);
+      }
+    }
+    return null;
+  });
 
+  // Өгөгдөл байхгүй бол нүүр хуудас руу буцах
   useEffect(() => {
-    // localStorage-аас өгөгдөл авах
-    const data = localStorage.getItem("article");
-
-    if (data) {
-      setArticle(JSON.parse(data));
-    } else {
-      // Өгөгдөл байхгүй бол нүүр хуудас руу буцах
+    if (article === null) {
       router.push("/");
     }
-  }, [router]);
+  }, [article, router]);
 
   // Өгөгдөл ачаалж байна
   if (!article) {

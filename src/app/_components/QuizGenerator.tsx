@@ -16,13 +16,32 @@ export const QuizGenerator = () => {
   const router = useRouter();
 
   const handleSubmit = () => {
+    // 1. Шалгах
     if (!title || !content) {
       alert("please fill in both fields");
       return;
     }
-    localStorage.setItem("article", JSON.stringify({ title, content }));
+    // 2. Шинэ article объект үүсгэх
+    const newArticle = {
+      id: Date.now().toString(), // Давтагдашгүй ID
+      title, // Хэрэглэгчийн бичсэн title
+      content, // Хэрэглэгчийн бичсэн content
+      createdAt: new Date().toISOString(), // Үүсгэсэн огноо
+    };
+    // 3. Одоогийн articles жагсаалт авах
 
-    router.push("/article/new");
+    const existingArticles = JSON.parse(
+      localStorage.getItem("articles") || "[]",
+    );
+
+    // 4. Шинэ article-ийг эхэнд нэмэх
+
+    const updatedArticles = [newArticle, ...existingArticles];
+
+    // 5. localStorage-д хадгалах
+    localStorage.setItem("articles", JSON.stringify(updatedArticles));
+    // 6. Шинэ хуудас руу очих
+    router.push(`/article/${newArticle.id}`);
   };
 
   return (
