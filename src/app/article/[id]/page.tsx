@@ -16,6 +16,7 @@ export default function ArticlePage() {
       <SummarizedContent
         title={mockArticle.title}
         summary={mockArticle.summary}
+        content={mockArticle.content}
       />
     </div>
   );
