@@ -11,7 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { X } from "lucide-react";
-import { mockArticle } from "../article/[id]/page";
+// import { mockArticle } from "../article/[id]/page";
 
 // const mockData = [
 //   {

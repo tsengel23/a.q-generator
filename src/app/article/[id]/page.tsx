@@ -40,36 +40,60 @@ export default function ArticlePage() {
   const router = useRouter();
 
   // localStorage-аас article хайх
-  const [article, setArticle] = useState<Article | null>(() => {
-    if (typeof window !== "undefined") {
-      const data = localStorage.getItem("articles");
-      if (data) {
+  const [article, setArticle] = useState<Article | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const data = localStorage.getItem("articles");
+
+    if (data) {
+      try {
         const articles: Article[] = JSON.parse(data);
         // ID-аар хайх
         const found = articles.find((a) => a.id === params.id);
-        return found || null;
-      }
-    }
-    return null;
-  });
-  // Олдохгүй бол нүүр рүү буцах
-  useEffect(() => {
-    if (article === null) {
-      router.push("/");
-    }
-  }, [article, router]);
 
-  if (!article) {
-    return <p>Loading...</p>;
+        if (found) {
+          setArticle(found);
+        } else {
+          router.push("/"); // Олдохгүй бол нүүр рүү буцах
+        }
+      } catch (e) {
+        console.error("Error parsing articles:", e);
+        router.push("/"); // Парс хийхэд алдаа гарвал нүүр рүү буцах
+      }
+    } else {
+      router.push("/"); // localStorage хоосон бол нүүр рүү буцах
+    }
+    setIsLoaded(true);
+  }, [params.id, router]);
+
+  // localStorage-аас авах хүртэл юу ч харуулахгүй байх
+  if (!isLoaded) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p>Loading...</p>
+      </div>
+    );
   }
+  // Article олдсонгүй
+  if (!article) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p>Article not found.</p>
+      </div>
+    );
+  }
+
   // Mock summary (дараа AI-аар солино)
 
-  const mockSummary = `This is a summary of "${article.title}"...`;
+  const mockSummary = `This is a summary of "${article.title}". The article discusses important topics related to ${article.title.toLowerCase()}. This summary was generated based on the content you provided.`;
   return (
-    <SummarizedContent
-      title={article.title} // ← localStorage-аас
-      summary={mockSummary}
-      content={article.content} // ← localStorage-аас
-    />
+    <div className="flex justify-center ">
+      <SummarizedContent
+        title={article.title} // ← localStorage-аас
+        summary={mockSummary}
+        content={article.content} // ← localStorage-аас
+      />
+    </div>
   );
 }

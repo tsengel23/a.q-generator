@@ -60,8 +60,8 @@
 // }
 
 "use client";
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+
+import { use, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -126,15 +126,22 @@ function groupArticlesByDate(articles: Article[]) {
 export function AppSidebar() {
   const pathname = usePathname();
 
-  const [articles, setArticles] = useState<Article[]>(() => {
-    if (typeof window !== "undefined") {
-      const data = localStorage.getItem("articles");
-      if (data) {
-        return JSON.parse(data);
+  // Эхлээд хоосон array (Server, Client аль аль дээр ижил)
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Client дээр localStorage-аас авах
+  useEffect(() => {
+    const data = localStorage.getItem("articles");
+    if (data) {
+      try {
+        setArticles(JSON.parse(data));
+      } catch (e) {
+        console.error("Error parsing articles:", e);
       }
     }
-    return [];
-  });
+    setIsLoaded(true);
+  }, []);
 
   // pathname өөрчлөгдөхөд дахин авах
   useEffect(() => {
@@ -157,7 +164,7 @@ export function AppSidebar() {
   const groupedArticles = groupArticlesByDate(articles);
 
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible="icon" className="sticky top-0 ">
       <SidebarHeader className="flex flex-row items-center justify-between p-4">
         <h2 className="font-semibold text-lg group-data-[collapsible=icon]:hidden">
           History
@@ -182,7 +189,7 @@ export function AppSidebar() {
                       key={article.id}
                       href={`/article/${article.id}`}
                       className={cn(
-                        "group flex items-center justify-between px-3 py-2 rounded-lg text-sm hover:bg-gray-100 transition-colors",
+                        "group flex items-center justify-between px-3 py-2 rounded-sm text-sm  hover:bg-gray-100 transition-colors hover:border",
                         pathname === `/article/${article.id}` &&
                           "bg-gray-100 font-medium",
                       )}
