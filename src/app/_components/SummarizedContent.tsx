@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { BookOpen, ChevronLeft, Sparkles } from "lucide-react";
 import { SeeContent } from "./SeeContent";
+import { TakeQuiz } from "./TakeQuiz";
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -10,12 +11,14 @@ export type SummarizedContentProps = {
   title: string;
   summary: string;
   content: string;
+  articleId: string;
 };
 
 export const SummarizedContent = ({
   title,
   summary,
   content,
+  articleId,
 }: SummarizedContentProps) => {
   const router = useRouter();
   return (
@@ -43,8 +46,8 @@ export const SummarizedContent = ({
         </div>
         <div className="flex justify-between">
           <SeeContent title={title} content={content} />
-
-          <Link href={"/quiz/1"}>
+          {/* <TakeQuiz /> */}
+          <Link href={`/quiz/${articleId}`}>
             <Button variant={"default"}>Take a quiz</Button>
           </Link>
         </div>

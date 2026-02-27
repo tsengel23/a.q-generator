@@ -23,7 +23,7 @@
 // }
 
 "use client";
-
+/* eslint-disable react-hooks/exhaustive-deps */
 import { SummarizedContent } from "@/app/_components/SummarizedContent";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -42,7 +42,9 @@ export default function ArticlePage() {
   // localStorage-аас article хайх
   const [article, setArticle] = useState<Article | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
 
+  // localStorage-аас article авах
   useEffect(() => {
     const data = localStorage.getItem("articles");
 
@@ -55,18 +57,24 @@ export default function ArticlePage() {
         if (found) {
           setArticle(found);
         } else {
-          router.push("/"); // Олдохгүй бол нүүр рүү буцах
+          setShouldRedirect(true); // Олдохгүй бол нүүр рүү буцах
         }
       } catch (e) {
         console.error("Error parsing articles:", e);
-        router.push("/"); // Парс хийхэд алдаа гарвал нүүр рүү буцах
+        setShouldRedirect(true); // Парс хийхэд алдаа гарвал нүүр рүү буцах
       }
     } else {
-      router.push("/"); // localStorage хоосон бол нүүр рүү буцах
+      setShouldRedirect(true); // localStorage хоосон бол нүүр рүү буцах
     }
     setIsLoaded(true);
-  }, [params.id, router]);
+  }, [params.id]);
 
+  // Redirect хийх
+  useEffect(() => {
+    if (shouldRedirect) {
+      router.push("/");
+    }
+  }, [shouldRedirect, router]);
   // localStorage-аас авах хүртэл юу ч харуулахгүй байх
   if (!isLoaded) {
     return (
@@ -93,6 +101,7 @@ export default function ArticlePage() {
         title={article.title} // ← localStorage-аас
         summary={mockSummary}
         content={article.content} // ← localStorage-аас
+        articleId={article.id}
       />
     </div>
   );
